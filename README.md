@@ -34,17 +34,7 @@ Combined Music Source: Leverages a large external dataset and the user's own mus
 
 YouTube Video Search: Automatically finds playable YouTube videos for recommended tracks.
 
-Embedded YouTube Player:
-
-Streams the generated playlist.
-
-Supports Play/Pause, Next, and Previous controls.
-
-Includes automatic skipping of unavailable videos.
-
-Loops the playlist indefinitely.
-
-Displays the current track list.
+Embedded YouTube Player: Streams the generated playlist, supports Play/Pause/Next/Previous, auto-skips unavailable videos, loops indefinitely, and displays the track list.
 
 Setup
 
