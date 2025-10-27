@@ -4,19 +4,19 @@ Spotigai is a Flask web application that generates personalized music playlists 
 
 ✨ Overview
 
-Users log in with their Spotify account, select a mood (Happy, Sad, Calm, Energetic), choose one of their Spotify playlists, optionally set a year range, and specify the desired number of songs. The application then:
+1. Users log in with their Spotify account, select a mood (Happy, Sad, Calm, Energetic), choose one of their Spotify playlists, optionally set a year range, and specify the desired number of songs. The application then:
 
-Loads a pre-processed dataset (standardized_song_list.csv) containing songs with mood labels.
+2. Loads a pre-processed dataset (standardized_song_list.csv) containing songs with mood labels.
 
-Fetches tracks from the user's selected Spotify playlist.
+3. Fetches tracks from the user's selected Spotify playlist.
 
-Filters both datasets based on the selected mood (for the CSV) and year range (for both).
+4. Filters both datasets based on the selected mood (for the CSV) and year range (for both).
 
-Creates a combined playlist, prioritizing songs (~80%) matching the mood from the dataset and supplementing (~20%) with songs from the user's playlist within the year range.
+5. Creates a combined playlist, prioritizing songs (~80%) matching the mood from the dataset and supplementing (~20%) with songs from the user's playlist within the year range.
 
-Searches YouTube for corresponding music videos for the selected songs.
+6. Searches YouTube for corresponding music videos for the selected songs.
 
-Presents an embedded YouTube player that streams the generated playlist with looping and basic playback controls.
+7. Presents an embedded YouTube player that streams the generated playlist with looping and basic playback controls.
 
 🚀 Features
 
@@ -40,28 +40,28 @@ Presents an embedded YouTube player that streams the generated playlist with loo
 
 Prerequisites
 
-Python 3.7+
+ - Python 3.7+
 
-pip (Python package installer)
+ - pip (Python package installer)
 
-Git
+ - Git
 
-Spotify Developer Account & App Credentials
+ - Spotify Developer Account & App Credentials
 
-Google Cloud Platform Account & YouTube Data API v3 Key
+ - Google Cloud Platform Account & YouTube Data API v3 Key
 
 Installation
 
 <details>
 <summary>Click to expand Installation steps</summary>
 
-Clone the repository:
+1. Clone the repository:
 
 git clone [https://github.com/JhonerLou/Spotigai.git](https://github.com/JhonerLou/Spotigai.git)
 cd Spotigai
 
 
-Create and activate a virtual environment:
+2. Create and activate a virtual environment:
 
 # Windows
 python -m venv venv
@@ -72,7 +72,7 @@ python3 -m venv venv
 source venv/bin/activate
 
 
-Install dependencies:
+3. Install dependencies:
 
 pip install -r requirements.txt
 
@@ -86,40 +86,40 @@ Configuration
 <details>
 <summary>Click to expand Configuration steps</summary>
 
-API Keys:
+1. API Keys:
 
-Spotify:
+        - Spotify:
 
-Go to the Spotify Developer Dashboard.
+        Go to the Spotify Developer Dashboard.
 
-Create/Select your app. Note Client ID & Secret.
+        Create/Select your app. Note Client ID & Secret.
 
-Add Redirect URI: http://127.0.0.1:8888/callback
+        Add Redirect URI: http://127.0.0.1:8888/callback
 
-Save.
+        Save.
 
-YouTube:
+        - YouTube:
 
-Go to the Google Cloud Console.
+        - Go to the Google Cloud Console.
 
-Create/Select project. Enable YouTube Data API v3.
+        - Create/Select project. Enable YouTube Data API v3.
 
-Create an API Key. Note it down.
+        - Create an API Key. Note it down.
 
-Environment Variables (.env file):
+        - Environment Variables (.env file):
 
-Create .env in the project root.
+2. Create .env in the project root.
 
-Add your keys:
+        Add your keys:
 
-SPOTIPY_CLIENT_ID=YOUR_SPOTIFY_CLIENT_ID_HERE
-SPOTIPY_CLIENT_SECRET=YOUR_SPOTIFY_CLIENT_SECRET_HERE
-SPOTIPY_REDIRECT_URI=[http://127.0.0.1:8888/callback](http://127.0.0.1:8888/callback)
-YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY_HERE
-FLASK_SECRET_KEY=generate_a_strong_random_secret_key_here
+        SPOTIPY_CLIENT_ID=YOUR_SPOTIFY_CLIENT_ID_HERE
+        SPOTIPY_CLIENT_SECRET=YOUR_SPOTIFY_CLIENT_SECRET_HERE
+        SPOTIPY_REDIRECT_URI=[http://127.0.0.1:8888/callback](http://127.0.0.1:8888/callback)
+        YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY_HERE
+        FLASK_SECRET_KEY=generate_a_strong_random_secret_key_here
 
 
-Replace placeholders. FLASK_SECRET_KEY should be a long, random string.
+        Replace placeholders. FLASK_SECRET_KEY should be a long, random string.
 
 </details>
 
