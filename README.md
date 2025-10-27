@@ -1,4 +1,4 @@
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f3b5/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f3b5/512.gif" alt="🎵" width="32" height="32"></picture> Spotigai: Mood-Based Music Player
+🎵 Spotigai: Mood-Based Music Player
 
 Spotigai is a Flask web application that generates personalized music playlists based on your mood and streams them using YouTube. It combines songs from a large dataset with tracks from your own Spotify library to create a unique listening experience.
 
@@ -20,23 +20,23 @@ Presents an embedded YouTube player that streams the generated playlist with loo
 
 🚀 Features
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f510/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f510/512.gif" alt="🔐" width="20" height="20"></picture> Spotify Authentication: Securely log in using your Spotify account via OAuth.
+🔐 Spotify Authentication: Securely log in using your Spotify account via OAuth.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d0/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d0/512.gif" alt="🧐" width="20" height="20"></picture> Mood Selection: Choose from Happy, Sad, Calm, or Energetic.
+🧐 Mood Selection: Choose from Happy, Sad, Calm, or Energetic.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9f6/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9f6/512.gif" alt="🧶" width="20" height="20"></picture> Playlist Integration: Select one of your own Spotify playlists to add variety.
+🧶 Playlist Integration: Select one of your own Spotify playlists to add variety.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f4c5/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f4c5/512.gif" alt="📅" width="20" height="20"></picture> Year Range Filtering (Optional): Specify a start and end year to narrow down the song selection.
+📅 Year Range Filtering (Optional): Specify a start and end year to narrow down the song selection.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9ee/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9ee/512.gif" alt="🔢" width="20" height="20"></picture> Custom Playlist Size: Select how many songs you want (1-50).
+🔢 Custom Playlist Size: Select how many songs you want (1-50).
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9b9_1f3fd/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9b9_1f3fd/512.gif" alt="🦸🏽" width="20" height="20"></picture> Combined Music Source: Leverages a large external dataset and the user's own music tastes.
+🦸🏽 Combined Music Source: Leverages a large external dataset and the user's own music tastes.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f50d/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f50d/512.gif" alt="🔎" width="20" height="20"></picture> YouTube Video Search: Automatically finds playable YouTube videos.
+🔎 YouTube Video Search: Automatically finds playable YouTube videos.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/25b6/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/25b6/512.gif" alt="▶️" width="20" height="20"></picture> Embedded YouTube Player: Streams the playlist with Play/Pause/Next/Previous controls, auto-skipping, looping, and a track list display.
+▶️ Embedded YouTube Player: Streams the playlist with Play/Pause/Next/Previous controls, auto-skipping, looping, and a track list display.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f527/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f527/512.gif" alt="🔧" width="20" height="20"></picture> Setup
+🔧 Setup
 
 Prerequisites
 
@@ -136,7 +136,7 @@ python standardize_data.py
 
 This creates standardized_song_list.csv. Check the script output for errors or warnings (e.g., if no valid data remains).
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="20" height="20"></picture> Usage
+🚦 Usage
 
 Activate your virtual environment.
 
@@ -157,7 +157,7 @@ Click "Generate Playlist".
 
 The player page will load and start playing.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f4c1/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f4c1/512.gif" alt="📁" width="20" height="20"></picture> File Structure
+📁 File Structure
 
 Spotigai/
 │
@@ -175,7 +175,7 @@ Spotigai/
     └── player.html       # Page with the YouTube player
 
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/26a0/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/26a0/512.gif" alt="⚠️" width="20" height="20"></picture> Known Issues & Limitations
+⚠️ Known Issues & Limitations
 
 YouTube Quota: Daily limit (default 10,000 units). Searches cost 100 units. Frequent use can exhaust the quota. Resets midnight PT.
 
@@ -185,7 +185,7 @@ Video Availability: Found videos might be unavailable/restricted. Player attempt
 
 Spotify API Limitations: Relies on mood labels in the dataset as direct audio feature access is deprecated for new apps.
 
-<picture><source srcset="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e9/512.webp" type="image/webp"><img src="https://www.google.com/search?q=https://fonts.gstatic.com/s/e/notoemoji/latest/1f9e9/512.gif" alt="🧩" width="20" height="20"></picture> Dependencies
+🧩 Dependencies
 
 Flask
 
