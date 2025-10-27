@@ -88,38 +88,38 @@ Configuration
 
 1. API Keys:
 
-        - Spotify:
+   - Spotify:
 
-        Go to the Spotify Developer Dashboard.
+     Go to the Spotify Developer Dashboard.
 
-        Create/Select your app. Note Client ID & Secret.
+     Create/Select your app. Note Client ID & Secret.
 
-        Add Redirect URI: http://127.0.0.1:8888/callback
+     Add Redirect URI: http://127.0.0.1:8888/callback
 
-        Save.
+     Save.
 
-        - YouTube:
+   - YouTube:
 
-        - Go to the Google Cloud Console.
+     Go to the Google Cloud Console.
 
-        - Create/Select project. Enable YouTube Data API v3.
+     Create/Select project. Enable YouTube Data API v3.
 
-        - Create an API Key. Note it down.
+     Create an API Key. Note it down.
 
-        - Environment Variables (.env file):
+     Environment Variables (.env file):
 
 2. Create .env in the project root.
 
-        Add your keys:
+   Add your keys:
 
-        SPOTIPY_CLIENT_ID=YOUR_SPOTIFY_CLIENT_ID_HERE
-        SPOTIPY_CLIENT_SECRET=YOUR_SPOTIFY_CLIENT_SECRET_HERE
-        SPOTIPY_REDIRECT_URI=[http://127.0.0.1:8888/callback](http://127.0.0.1:8888/callback)
-        YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY_HERE
-        FLASK_SECRET_KEY=generate_a_strong_random_secret_key_here
+   SPOTIPY_CLIENT_ID=YOUR_SPOTIFY_CLIENT_ID_HERE
+   SPOTIPY_CLIENT_SECRET=YOUR_SPOTIFY_CLIENT_SECRET_HERE
+   SPOTIPY_REDIRECT_URI=[http://127.0.0.1:8888/callback](http://127.0.0.1:8888/callback)
+   YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY_HERE
+   FLASK_SECRET_KEY=generate_a_strong_random_secret_key_here
 
 
-        Replace placeholders. FLASK_SECRET_KEY should be a long, random string.
+   Replace placeholders. FLASK_SECRET_KEY should be a long, random string.
 
 </details>
 
