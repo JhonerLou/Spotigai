@@ -1,0 +1,52 @@
+Virtual Environment
+
+venv/
+/venv/
+*.venv
+.venv/
+
+Environment Variables File
+
+.env
+.env.
+!.env.example
+
+Cache files
+
+.cache
+.spotify_cache-*
+*.pyc
+pycache/
+
+Saved Models / Data Objects
+
+*.joblib
+*.pkl
+
+IDE/Editor configuration
+
+.vscode/
+.idea/
+
+Operating System files
+
+.DS_Store
+Thumbs.db
+
+Optional: Large data files (uncomment if you don't want to track them)
+
+*.csv
+
+full_song_list.csv
+
+standardized_song_list.csv
+
+Optional: Output files (uncomment if you don't want to track them)
+
+updated_spotify_tracks_with_features.csv
+
+features_checkpoint.csv
+
+Optional: Jupyter Notebook checkpoints
+
+.ipynb_checkpoints/

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Playlist and Mood</title> <!-- Updated Title -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Style for better dropdown readability */
+        select option { background: #374151; color: white; } /* gray-700 equivalent */
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen flex items-center justify-center text-white p-4">
+    <div class="bg-black bg-opacity-70 p-8 rounded-lg shadow-xl w-full max-w-lg backdrop-blur-sm border border-gray-700">
+        <h1 class="text-3xl font-bold mb-6 text-center">Create Your Mood Playlist</h1>
+        <p class="mb-4 text-center text-gray-300">Welcome, {{ username }}! Select your preferences:</p>
+
+        <form action="/generate" method="post">
+            <!-- Playlist Selection -->
+            <div class="mb-4">
+                 <label for="playlist_id" class="block text-sm font-medium text-gray-300 mb-1">Select Your Spotify Playlist:</label>
+                <select name="playlist_id" id="playlist_id" required
+                        class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white">
+                    <option value="" disabled selected>-- Choose a playlist --</option>
+                    {% for playlist in playlists %}
+                        <option value="{{ playlist.id }}">{{ playlist.name }} ({{ playlist.tracks.total }} tracks)</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Mood Selection -->
+            <div class="mb-4">
+                <label for="mood" class="block text-sm font-medium text-gray-300 mb-1">Select Your Mood:</label>
+                <select name="mood" id="mood" required
+                        class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white">
+                    <option value="" disabled selected>-- Choose a mood --</option>
+                    {% for mood in moods %}
+                        <option value="{{ mood }}">{{ mood }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Year Range Selection - REMOVED -->
+            <!-- <div class="flex space-x-4 mb-4"> ... </div> -->
+
+             <!-- Number of Songs -->
+            <div class="mb-6">
+                <label for="num_songs" class="block text-sm font-medium text-gray-300 mb-1">Number of Songs (1-50):</label>
+                <input type="number" name="num_songs" id="num_songs" min="1" max="50" value="20" required
+                       class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md focus:ring-purple-500 focus:border-purple-500 text-white appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-gray-900 transition duration-150 ease-in-out">
+                Generate Playlist
+            </button>
+        </form>
+
+        <!-- Logout Link -->
+         <div class="mt-6 text-center">
+            <a href="/logout" class="text-sm text-gray-400 hover:text-purple-400 transition duration-150 ease-in-out">Logout from Spotify</a>
+        </div>
+    </div>
+</body>
+</html>
+
