@@ -124,25 +124,6 @@ Data Preparation
 7. Click "Generate Playlist".
 8. Player page loads and starts playing.
 
-
-📁 File Structure
-
-Spotigai/
-│
-├── .env                  # Stores API keys and secrets (!! DO NOT COMMIT !!)
-├── .gitignore            # Specifies files/folders Git should ignore
-├── app.py                # Main Flask application logic
-├── standardize_data.py   # Script to clean and prepare the input CSV
-├── full_song_list.csv    # Original raw data file (Input for standardize_data.py)
-├── standardized_song_list.csv # Cleaned data used by app.py
-├── requirements.txt      # List of Python dependencies
-│
-└── templates/            # HTML templates for Flask
-    ├── index.html        # Login page
-    ├── select.html       # Selection page (Playlist, Mood, etc.)
-    └── player.html       # Page with the YouTube player
-
-
 ⚠️ Known Issues & Limitations
 
 - YouTube Quota: Daily limit (default 10k units). Searches cost 100 units. Can be 
