@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title uses playlist_title passed from Flask -->
+    <title>{{ playlist_title or 'Spotify Playlist Player' }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Styles identical to mood_player.html */
+        body { font-family: 'Inter', sans-serif; }
+        #player {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            max-width: 100%; background: #000; border-radius: 0.5rem; margin-bottom: 1rem;
+        }
+        #player iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        #track-list-container {
+             max-height: 300px; overflow-y: auto; background-color: rgba(0, 0, 0, 0.3);
+             border-radius: 0.5rem; padding: 0.5rem 1rem; border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+         #track-list ul { list-style: none; padding: 0; margin: 0; }
+         #track-list li {
+            padding: 0.5rem 0.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.2s ease-in-out; cursor: pointer; font-size: 0.875rem;
+         }
+        #track-list li:last-child { border-bottom: none; }
+        #track-list li.playing { background-color: rgba(168, 85, 247, 0.3); font-weight: 600; }
+         #track-list li:hover { background-color: rgba(255, 255, 255, 0.1); }
+         .controls button { transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out; }
+         .controls button:active { transform: scale(0.95); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen flex items-center justify-center text-white p-4">
+    <div class="bg-black bg-opacity-70 p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-2xl backdrop-blur-sm border border-gray-700">
+        <!-- Heading uses playlist_title passed from Flask -->
+        <h1 class="text-2xl sm:text-3xl font-bold mb-4 text-center">{{ playlist_title or 'Spotify Playlist' }}</h1>
+
+        {% if error %}
+            <div class="bg-red-500 bg-opacity-50 text-red-100 p-4 rounded-md mb-4 border border-red-700">
+                <p><strong>Error:</strong> {{ error }}</p>
+                <!-- Link back to browse page on error -->
+                <p class="mt-2"><a href="{{ url_for('browse_playlists') }}" class="underline hover:text-red-200">Go back to playlists</a></p>
+            </div>
+        {% else %}
+            <!-- YouTube Player Container -->
+            <div id="player"></div>
+
+            <!-- Track Info Display -->
+            <div class="mt-4 mb-4 text-center">
+                 <p class="text-lg font-semibold" id="current-track-title">Loading...</p>
+                 <p class="text-xs text-gray-400 mt-1" id="current-youtube-title" title="Actual YouTube Video Title"></p>
+            </div>
+
+            <!-- Playback Controls -->
+            <div class="controls flex justify-center space-x-4 mb-6">
+                 <!-- Controls identical to mood_player.html -->
+                <button id="prev-button" onclick="prevVideo()" title="Previous Track" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.189v8.622zm-7.108-4.062L6.78 8.189a1.125 1.125 0 00-1.683.977v8.622a1.125 1.125 0 001.683.977l7.108-4.062a1.125 1.125 0 000-1.953z" /></svg>
+                </button>
+                <button id="play-pause-button" onclick="togglePlayPause()" title="Play/Pause" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-5 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" /></svg>
+                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" /></svg>
+                </button>
+                <button id="next-button" onclick="nextVideo()" title="Next Track" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8.189v8.622c0 .864.933 1.405 1.683.977l7.108-4.062a1.125 1.125 0 010-1.953L4.683 7.211A1.125 1.125 0 003 8.189zm7.108 4.062L17.22 8.189a1.125 1.125 0 011.683.977v8.622a1.125 1.125 0 01-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953z" /></svg>
+                </button>
+            </div>
+
+            <!-- Track List -->
+            <div id="track-list-container" class="mb-4">
+                 <h2 class="text-lg font-semibold mb-2 text-center text-gray-300">Playlist Tracks</h2>
+                 <div id="track-list">
+                    <ul> <!-- Populated by JS --> </ul>
+                </div>
+            </div>
+
+             <!-- Navigation Links -->
+             <div class="mt-6 text-center space-x-4">
+                 <!-- Link back to the browse page -->
+                 <a href="{{ url_for('browse_playlists') }}" class="text-sm text-purple-400 hover:text-purple-300 transition duration-150 ease-in-out">Back to Playlists</a>
+                 <a href="{{ url_for('select_options') }}" class="text-sm text-purple-400 hover:text-purple-300 transition duration-150 ease-in-out">Generate Mood Playlist</a>
+            </div>
+
+            <script>
+                // JavaScript is identical to mood_player.html
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                var player;
+                var videoIds = []; var trackNames = []; var youtubeTitles = [];
+                try {
+                    videoIds = JSON.parse({{ video_ids_json|safe }});
+                    trackNames = JSON.parse({{ track_names_json|safe }});
+                    youtubeTitles = JSON.parse({{ youtube_titles_json|safe }});
+                } catch (e) { console.error("Error parsing playlist data:", e); }
+
+                var currentVideoIndex = 0; var isPlaying = false;
+
+                function onYouTubeIframeAPIReady() {
+                    if (videoIds && videoIds.length > 0) {
+                        player = new YT.Player('player', {
+                            height: '360', width: '640', videoId: videoIds[0],
+                            playerVars: { 'playsinline': 1, 'autoplay': 1, 'controls': 0, 'loop': 0, 'playlist': videoIds.join(',') },
+                            events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange, 'onError': onPlayerError }
+                        });
+                        populateTrackList();
+                    } else {
+                        document.getElementById('current-track-title').innerText = "No videos found.";
+                        document.querySelector('.controls').style.display = 'none';
+                        document.getElementById('track-list-container').style.display = 'none';
+                    }
+                }
+
+                function onPlayerReady(event) {
+                    isPlaying = true; updatePlayPauseButton();
+                    currentVideoIndex = player.getPlaylistIndex(); updateTrackInfo();
+                    event.target.playVideo();
+                }
+
+                function onPlayerStateChange(event) {
+                    let playerState = event.data;
+                    currentVideoIndex = player.getPlaylistIndex();
+
+                    if (playerState == YT.PlayerState.PLAYING) {
+                        isPlaying = true; updatePlayPauseButton(); updateTrackInfo();
+                    } else if (playerState == YT.PlayerState.PAUSED) {
+                        isPlaying = false; updatePlayPauseButton();
+                    } else if (playerState == YT.PlayerState.ENDED) {
+                        isPlaying = true; updatePlayPauseButton();
+                        currentVideoIndex = player.getPlaylistIndex(); // Should be 0 after loop
+                        updateTrackInfo();
+                        console.log("Playlist loop.");
+                    }
+                }
+
+                function onPlayerError(event) {
+                    console.error("YT Player Error:", event.data, "Index:", currentVideoIndex, "ID:", videoIds[currentVideoIndex]);
+                    console.log(`Error playing video. Skipping.`);
+                    if (player && typeof player.nextVideo === 'function') {
+                        player.nextVideo();
+                        isPlaying = true; updatePlayPauseButton();
+                    }
+                }
+
+                function togglePlayPause() { if (!player) return; isPlaying ? player.pauseVideo() : player.playVideo(); }
+                function nextVideo() { if (player && typeof player.nextVideo === 'function') { player.nextVideo(); isPlaying = true; updatePlayPauseButton(); } }
+                function prevVideo() { if (player && typeof player.previousVideo === 'function') { player.previousVideo(); isPlaying = true; updatePlayPauseButton(); } }
+
+                function updatePlayPauseButton() {
+                    const playIcon = document.getElementById('play-icon');
+                    const pauseIcon = document.getElementById('pause-icon');
+                    if (!playIcon || !pauseIcon) return;
+                    if (isPlaying) { playIcon.classList.add('hidden'); pauseIcon.classList.remove('hidden'); }
+                    else { playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
+                }
+
+                 function populateTrackList() {
+                     const trackListUl = document.querySelector('#track-list ul');
+                     if (!trackListUl) return;
+                     trackListUl.innerHTML = '';
+                     trackNames.forEach((name, index) => {
+                         const li = document.createElement('li');
+                         li.textContent = name || 'Unknown Track';
+                         li.dataset.index = index;
+                         li.onclick = () => playTrackByIndex(index);
+                         trackListUl.appendChild(li);
+                     });
+                 }
+
+                 function playTrackByIndex(index) { if (player && typeof player.playVideoAt === 'function') player.playVideoAt(index); }
+
+                function updateTrackInfo() {
+                    const titleEl = document.getElementById('current-track-title');
+                    const ytTitleEl = document.getElementById('current-youtube-title');
+                    if (!player || typeof player.getPlaylistIndex !== 'function') { if(titleEl) titleEl.innerText = "Player loading..."; return; }
+                    currentVideoIndex = player.getPlaylistIndex();
+
+                    if (trackNames && trackNames.length > currentVideoIndex && currentVideoIndex >= 0) {
+                        if(titleEl) titleEl.innerText = trackNames[currentVideoIndex];
+                    } else { if(titleEl) titleEl.innerText = "Track info unavailable"; }
+
+                    if (youtubeTitles && youtubeTitles.length > currentVideoIndex && currentVideoIndex >= 0) {
+                         if(ytTitleEl) ytTitleEl.innerText = `YT: ${youtubeTitles[currentVideoIndex]}`;
+                    } else { if(ytTitleEl) ytTitleEl.innerText = ""; }
+
+                     const trackListItems = document.querySelectorAll('#track-list li');
+                     trackListItems.forEach(item => {
+                         if (item.dataset.index == currentVideoIndex) {
+                             item.classList.add('playing');
+                             if (item.scrollIntoView) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                         } else { item.classList.remove('playing'); }
+                     });
+                }
+            </script>
+        {% endif %}
+    </div>
+</body>
+</html>

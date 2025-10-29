@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Spotigai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen flex items-center justify-center text-white p-4">
+    <div class="bg-black bg-opacity-70 p-10 rounded-lg shadow-xl w-full max-w-md text-center backdrop-blur-sm border border-gray-700">
+        <h1 class="text-4xl font-bold mb-6">🎵 Spotigai</h1>
+        <p class="text-lg text-gray-300 mb-8">Create personalized music playlists based on your mood.</p>
+        <a href="{{ url_for('login') }}"
+           class="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-900 transition duration-150 ease-in-out text-lg">
+            Login with Spotify
+        </a>
+    </div>
+</body>
+</html>
+

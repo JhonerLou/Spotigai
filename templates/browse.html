@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Your Playlists</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .playlist-item { transition: background-color 0.2s ease-in-out; }
+        .playlist-item:hover { background-color: rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen text-white p-4 pt-10">
+    <div class="bg-black bg-opacity-70 p-8 rounded-lg shadow-xl w-full max-w-3xl mx-auto backdrop-blur-sm border border-gray-700">
+        <h1 class="text-3xl font-bold mb-6 text-center">Your Spotify Playlists</h1>
+        <p class="mb-6 text-center text-gray-300">Welcome, {{ username }}! Click on a playlist to play its tracks.</p>
+
+        {% if playlists %}
+            <ul class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                {% for playlist in playlists %}
+                    <li class="playlist-item border border-gray-700 rounded-md p-4 flex items-center justify-between">
+                       <div class="flex items-center space-x-4">
+                            {% if playlist.images and playlist.images|length > 0 %}
+                                <img src="{{ playlist.images[-1].url }}" alt="{{ playlist.name }} cover" class="w-12 h-12 rounded object-cover">
+                            {% else %}
+                                <div class="w-12 h-12 rounded bg-gray-700 flex items-center justify-center text-gray-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.07 1.916l-7.5 4.25a2.25 2.25 0 01-2.36 0L3.32 15.219a2.25 2.25 0 01-1.07-1.916V9.603a2.25 2.25 0 011.07-1.917l7.5-4.25a2.25 2.25 0 012.36 0L19.5 7.503" />
+                                    </svg>
+                                </div>
+                            {% endif %}
+                           <div>
+                               <p class="font-semibold">{{ playlist.name }}</p>
+                               <p class="text-sm text-gray-400">{{ playlist.tracks.total if playlist.tracks else '?' }} tracks {% if playlist.owner %}by {{ playlist.owner.display_name }}{% endif %}</p>
+                           </div>
+                       </div>
+                        <a href="{{ url_for('play_playlist', playlist_id=playlist.id) }}"
+                           class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md text-sm transition duration-150 ease-in-out">
+                            Play
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center text-gray-400">You don't seem to have any playlists, or we couldn't fetch them.</p>
+        {% endif %}
+
+        <!-- Navigation Links -->
+         <div class="mt-8 text-center space-x-4">
+            <a href="{{ url_for('select_options') }}" class="text-sm text-purple-400 hover:text-purple-300 transition duration-150 ease-in-out">Generate Mood Playlist</a>
+            <a href="/logout" class="text-sm text-gray-400 hover:text-purple-400 transition duration-150 ease-in-out">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
